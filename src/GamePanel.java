@@ -3,14 +3,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
-    static final int width = 700;
-    static final int height = 700;
+    static final int width = 600;
+    static final int height = 600;
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
     static final int speed = 50;
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener{
     Random random;
 
     public GamePanel() throws IOException {
+        random = new Random();
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
@@ -44,10 +46,10 @@ public class GamePanel extends JPanel implements ActionListener{
         timer.start();
     }
 
-    public void gameDesign(Graphics g){
+    public void paintComponent(Graphics g){
         super.paintComponent(g);
-        elementDesign(g);
         g.drawImage(image1, 0 , 0, null);
+        elementDesign(g);
     }
 
     public void elementDesign(Graphics g){
@@ -76,8 +78,8 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void displayApple(){
-        snackX = random.nextInt((int) (width / boxSize)) * boxSize;
-        snackY = random.nextInt((int) (width / boxSize)) * boxSize;
+        snackX = random.nextInt(width / boxSize) * boxSize;
+        snackY = random.nextInt(width / boxSize) * boxSize;
     }
 
     public void moveSnake(){
@@ -150,6 +152,15 @@ public class GamePanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (gameRunning){
+            moveSnake();
+            eatSnack();
+            checkGameOverInjured();
+            checkGameOverWallCollision();
+
+        }
+        repaint();
 
     }
+
 }
