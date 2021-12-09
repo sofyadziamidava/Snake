@@ -19,11 +19,10 @@ public class GamePanel extends JPanel implements ActionListener{
     int snackX;
     int snackY;
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
-    Image image2 = ImageIO.read(new File("src/lotta.jpg"));
+   // Image image2 = ImageIO.read(new File("src/lotta.jpg"));
 
     final int[] x = new int[gameUnits];
     final int[] y = new int[gameUnits];
-
 
     int snakeSize = 4;
     static String course = "Right";
@@ -36,6 +35,7 @@ public class GamePanel extends JPanel implements ActionListener{
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
         startOfTheGame();
     }
 
@@ -138,16 +138,16 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void endOfTheGame(Graphics g){
-        g.drawImage(image2, gameUnits , gameUnits, null);
-        g.setColor(Color.red);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 40));
+       // g.drawImage(image2, gameUnits , gameUnits, null);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Score: " + score, (width - metrics1.stringWidth("Score: " + score)) /2, g.getFont().getSize());
 
         g.setColor(Color.red);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 75));
+        g.setFont(new Font("Ink Free", Font.BOLD, 75));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("GET REKT", (width - metrics2.stringWidth("Game over")) /2, height / 2);
+        g.drawString("Game Over", (width - metrics2.stringWidth("Game over")) /2, height / 2);
     }
 
     @Override

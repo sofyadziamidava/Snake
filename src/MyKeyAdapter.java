@@ -16,12 +16,12 @@ public class MyKeyAdapter extends KeyAdapter {
                         GamePanel.course = "Right";
                     }
                     break;
-                case KeyEvent.VK_S:
+                case KeyEvent.VK_W:
                     if(!GamePanel.course.equals("Down")){
                         GamePanel.course = "Up";
                     }
                     break;
-                case KeyEvent.VK_W:
+                case KeyEvent.VK_S:
                     if(!GamePanel.course.equals("Up")){
                         GamePanel.course = "Down";
                     }
