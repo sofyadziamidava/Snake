@@ -12,6 +12,9 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
     static final int speed = 50;
+    boolean running = false;
+    int snackX;
+    int snackY;
 
     final int[][] coordinates = new int[gameUnits][gameUnits];
 
@@ -30,11 +33,16 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void startOfTheGame(){
+        displayApple();
+        running = true;
+        timer = new Timer(speed, this);
+        timer.start();
 
     }
 
     public void displayApple(){
-
+        snackX = random.nextInt((int) (width / boxSize)) * boxSize;
+        snackY = random.nextInt((int) (width / boxSize)) * boxSize;
     }
 
     public void moveSnake(){
@@ -52,8 +60,6 @@ public class GamePanel extends JPanel implements ActionListener{
     public void endOfTheGame(){
 
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
