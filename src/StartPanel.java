@@ -11,7 +11,7 @@ public class StartPanel extends JFrame implements ActionListener {
     //JLabel welcomingMessage = new JLabel("Let's play snake!");
     JButton startButton = new JButton("Let's play snake!");
     JPanel mainPanel = new JPanel();
-    Image image1 = ImageIO.read(new File("kaa.jpg"));  //TODO: se till så att bilden kan ritas och visas i fönstret
+    //Image image1 = ImageIO.read(new File("kaa.jpg"));  //TODO: se till så att bilden kan ritas och visas i fönstret
 
     public StartPanel() throws IOException {
 
