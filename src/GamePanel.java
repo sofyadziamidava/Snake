@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -14,12 +13,11 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int height = 600;
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
-    static final int speed = 50;
+    static final int speed = 100;
     boolean gameRunning = false;
     int snackX;
     int snackY;
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
-   // Image image2 = ImageIO.read(new File("src/lotta.jpg"));
 
     final int[] x = new int[gameUnits];
     final int[] y = new int[gameUnits];
