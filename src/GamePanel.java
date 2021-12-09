@@ -1,8 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
@@ -12,31 +14,32 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
     static final int speed = 50;
-    boolean running = false;
+    boolean gameRunning = false;
     int snackX;
     int snackY;
+    Image image1 = ImageIO.read(new File("src/grass.jpg"));
+    Image image2 = ImageIO.read(new File("src/lotta.jpg"));
 
     final int[] x = new int[gameUnits];
     final int[] y = new int[gameUnits];
 
 
     int snakeSize = 4;
-    String course = "Right";
+    static String course = "Right";
     int score = 0;
     Timer timer;
     Random random;
 
-    public GamePanel(){
+    public GamePanel() throws IOException {
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
-
         startOfTheGame();
     }
 
     public void startOfTheGame(){
         displayApple();
-        running = true;
+        gameRunning = true;
         timer = new Timer(speed, this);
         timer.start();
     }
@@ -44,10 +47,11 @@ public class GamePanel extends JPanel implements ActionListener{
     public void gameDesign(Graphics g){
         super.paintComponent(g);
         elementDesign(g);
+        g.drawImage(image1, 0 , 0, null);
     }
 
     public void elementDesign(Graphics g){
-        if(running) {
+        if(gameRunning) {
             g.setColor(Color.red);
             g.fillOval(snackX, snackY, boxSize, boxSize);
 
@@ -66,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener{
             g.drawString("Score: " + score, (width - metrics.stringWidth("Score: " + score)) / 2,
                     g.getFont().getSize());
         } else {
-            endOfTheGame();
+            endOfTheGame(g);
         }
 
     }
@@ -91,11 +95,36 @@ public class GamePanel extends JPanel implements ActionListener{
         }else  if (course.equals("Down")){
             y[0] = y[0] + boxSize;
         }
-
     }
 
-    public void changeDirection(){
+    public void checkGameOverWallCollision(){
+        if(x[0] < 0){
+            gameRunning = false;
+        }
+        //Kollar om ormen går in i högra väggen
+        if(x[0] > width){
+            gameRunning = false;
+        }
+        //Kollar om ormen går in i översta väggen
+        if(y[0] < 0){
+            gameRunning = false;
+        }
+        //Kollar om ormen går in i nederst väggen
+        if(x[0] > height){
+            gameRunning = false;
+        }
+        if(!gameRunning){
+            timer.stop();
+        }
+    }
 
+    public void checkGameOverInjured(){
+        for (int i = snakeSize; i > 0 ; i--) {
+            if((x[0] == x[i])&& (y[0] == y[i])) {
+                gameRunning = false;
+                    timer.stop();
+            }
+        }
     }
 
     public void eatSnack(){
@@ -106,8 +135,17 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
-    public void endOfTheGame(){
+    public void endOfTheGame(Graphics g){
+        g.drawImage(image2, gameUnits , gameUnits, null);
+        g.setColor(Color.red);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 40));
+        FontMetrics metrics1 = getFontMetrics(g.getFont());
+        g.drawString("Score: " + score, (width - metrics1.stringWidth("Score: " + score)) /2, g.getFont().getSize());
 
+        g.setColor(Color.red);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 75));
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString("GET REKT", (width - metrics2.stringWidth("Game over")) /2, height / 2);
     }
 
     @Override
