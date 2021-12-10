@@ -18,18 +18,19 @@ public class StartPanel extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
 
         JLabel background = new JLabel(new ImageIcon("src/kaa.jpg"));
-        add(background);
-        background.setLayout(new FlowLayout());
+
+        background.setLayout(new BorderLayout());
         startButton = new JButton("Let's play snake!");
-        background.add(startButton);
+        background.add(startButton, BorderLayout.SOUTH);
         startButton.addActionListener(this);
+        add(background);
         this.setVisible(true);
         this.pack();
         this.setSize(600, 600);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
 
