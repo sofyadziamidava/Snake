@@ -5,19 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
     Snake snake;
+    Apple apple;
     static final int width = 600;
     static final int height = 600;
     static final int boxSize = 30;   // ormdelar storlek
     static final int gameUnits = ((width*height / boxSize));
     //static final int speed = 100;                            // orm
     boolean gameRunning = false;
-    int snackX;
-    int snackY;
+    //int snackX;
+    //int snackY;
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
 
     final int[] x = new int[gameUnits];
@@ -27,11 +27,11 @@ public class GamePanel extends JPanel implements ActionListener{
     static String course = "Right";   // orm, men handlar om riktning och interaktion med gui
     int score = 0;
     Timer timer;
-    Random random;
+   // Random random;
 
     public GamePanel() throws IOException {
         this.snake = new Snake(4, boxSize, 100);
-        random = new Random();
+       // random = new Random();
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void startOfTheGame(){
-        displayApple();
+        this.apple = new Apple(width, boxSize);                              //displayApple();
         gameRunning = true;
         timer = new Timer(snake.getSpeed(), this); // timer = new Timer(speed, this);
         timer.start();
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public void elementDesign(Graphics g){
         if(gameRunning) {
             g.setColor(Color.red);
-            g.fillOval(snackX, snackY, boxSize, boxSize);
+            g.fillOval(apple.getXpos(), apple.getYpos(), boxSize, boxSize);
 
             for (int i = 0; i < snake.getSize(); i++) {  //             for (int i = 0; i < snakeSize; i++) {
                 if (i == 0) {
@@ -77,11 +77,11 @@ public class GamePanel extends JPanel implements ActionListener{
 
     }
 
-    public void displayApple(){
+   /* public void displayApple(){
         snackX = random.nextInt(width / boxSize) * boxSize;
         snackY = random.nextInt(width / boxSize) * boxSize;
     }
-
+*/
     public void moveSnake(){
         for (int i = snake.getSize(); i > 0; i--) {   //         for (int i = snakeSize; i > 0; i--) {
             x[i] = x[i - 1];
@@ -130,10 +130,10 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void eatSnack(){
-        if(x[0] == snackX && y[0] == snackY){
+        if(x[0] == apple.getXpos() && y[0] == apple.getYpos()){
             snake.increaseSize(1);
             score++;
-            displayApple();
+            apple.setNewPos();                     //displayApple();
         }
     }
 
@@ -157,7 +157,6 @@ public class GamePanel extends JPanel implements ActionListener{
             eatSnack();
             checkGameOverInjured();
             checkGameOverWallCollision();
-
         }
         repaint();
 
