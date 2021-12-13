@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class GamePanel extends JPanel implements ActionListener{
 
-    Game game;
     static final int width = 600;
     static final int height = 600;
     static final int boxSize = 30;
@@ -19,9 +18,10 @@ public class GamePanel extends JPanel implements ActionListener{
 
     static String course = "Right";
     Timer timer;
+    Game game;
 
     public GamePanel() throws IOException {
-        this.game = new Game(new Snake(4, boxSize, 100, gameUnits), new Apple(width, boxSize));
+        this.game = new Game(new Snake(4, boxSize, 100, gameUnits), new Apple(width, boxSize), width, height);
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
@@ -64,34 +64,17 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
-    public void checkGameOverWallCollision(){
-        if(game.snake.getXPosHead() < 0){
+    public void checkWallCollision(){
+        if (game.wallCollision()) {
             gameRunning = false;
-        }
-        //Kollar om ormen går in i högra väggen
-        if(game.snake.getXPosHead() > width){
-            gameRunning = false;
-        }
-        //Kollar om ormen går in i översta väggen
-        if(game.snake.getYPosHead() < 0){
-            gameRunning = false;
-        }
-        //Kollar om ormen går in i nederst väggen
-        if(game.snake.getYPosHead() > height){
-            gameRunning = false;
-        }
-        if(!gameRunning){
             timer.stop();
         }
     }
 
-    public void checkGameOverInjured(){
-        for (int i = game.getSnakeSize(); i > 0 ; i--) {
-            if((game.snake.getXPosHead() == game.snake.getXPosBodyPart(i)) &&
-                    (game.snake.getYPosHead() == game.snake.getYPosBodyPart(i))) {
-                gameRunning = false;
-                    timer.stop();
-            }
+    public void checkIfInjured(){
+        if (game.snakeInjured()){
+            gameRunning = false;
+            timer.stop();
         }
     }
 
@@ -113,8 +96,8 @@ public class GamePanel extends JPanel implements ActionListener{
         if (gameRunning){
             game.moveSnake(course);
             game.eatSnack();
-            checkGameOverInjured();
-            checkGameOverWallCollision();
+            checkIfInjured();
+            checkWallCollision();
         }
         repaint();
     }
