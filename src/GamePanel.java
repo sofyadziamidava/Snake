@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class GamePanel extends JPanel implements ActionListener{
 
-    Snake snake;
-    Apple apple;
+    Game game;
     static final int width = 600;
     static final int height = 600;
     static final int boxSize = 30;
@@ -18,15 +17,11 @@ public class GamePanel extends JPanel implements ActionListener{
 
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
 
-    final int[] x = new int[gameUnits];
-    final int[] y = new int[gameUnits];
-
     static String course = "Right";
-    int score = 0;
     Timer timer;
 
     public GamePanel() throws IOException {
-        this.snake = new Snake(4, boxSize, 100);
+        this.game = new Game(new Snake(4, boxSize, 100, gameUnits), new Apple(width, boxSize));
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
@@ -35,9 +30,8 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void startOfTheGame(){
-        this.apple = new Apple(width, boxSize);
         gameRunning = true;
-        timer = new Timer(snake.getSpeed(), this);
+        timer = new Timer(game.getSpeed(), this);
         timer.start();
     }
 
@@ -50,59 +44,40 @@ public class GamePanel extends JPanel implements ActionListener{
     public void elementDesign(Graphics g){
         if(gameRunning) {
             g.setColor(Color.red);
-            g.fillOval(apple.getXpos(), apple.getYpos(), boxSize, boxSize);
+            g.fillOval(game.apple.getXpos(), game.apple.getYpos(), boxSize, boxSize);
 
-            for (int i = 0; i < snake.getSize(); i++) {
+            for (int i = 0; i < game.getSnakeSize(); i++) {
                 if (i == 0) {
                     g.setColor(Color.ORANGE);
-                    g.fillRect(x[i], y[i], boxSize, boxSize);
                 } else {
                     g.setColor(Color.yellow);
-                    g.fillRect(x[i], y[i], boxSize, boxSize);
                 }
+                g.fillRect(game.snake.getXPosBodyPart(i), game.snake.getYPosBodyPart(i), boxSize, boxSize);
             }
             g.setColor(Color.black);
             g.setFont(new Font("Ink free", Font.BOLD, 40));
             FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + score, (width - metrics.stringWidth("Score: " + score)) / 2,
+            g.drawString("Score: " + game.getScore(), (width - metrics.stringWidth("Score: " + game.getScore())) / 2,
                     g.getFont().getSize());
         } else {
             endOfTheGame(g);
         }
-
-    }
-
-    public void moveSnake(){
-        for (int i = snake.getSize(); i > 0; i--) {
-            x[i] = x[i - 1];
-            y[i] = y[i - 1];
-        }
-
-        if(course.equals("Right")){
-            x[0] = x[0] + boxSize;
-        } else if (course.equals("Left")){
-            x[0] = x[0] - boxSize;
-        }else if (course.equals("Up")){
-            y[0] = y[0] - boxSize;
-        }else  if (course.equals("Down")){
-            y[0] = y[0] + boxSize;
-        }
     }
 
     public void checkGameOverWallCollision(){
-        if(x[0] < 0){
+        if(game.snake.getXPosHead() < 0){
             gameRunning = false;
         }
         //Kollar om ormen går in i högra väggen
-        if(x[0] > width){
+        if(game.snake.getXPosHead() > width){
             gameRunning = false;
         }
         //Kollar om ormen går in i översta väggen
-        if(y[0] < 0){
+        if(game.snake.getYPosHead() < 0){
             gameRunning = false;
         }
         //Kollar om ormen går in i nederst väggen
-        if(x[0] > height){
+        if(game.snake.getYPosHead() > height){
             gameRunning = false;
         }
         if(!gameRunning){
@@ -111,19 +86,12 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void checkGameOverInjured(){
-        for (int i = snake.getSize(); i > 0 ; i--) {
-            if((x[0] == x[i])&& (y[0] == y[i])) {
+        for (int i = game.getSnakeSize(); i > 0 ; i--) {
+            if((game.snake.getXPosHead() == game.snake.getXPosBodyPart(i)) &&
+                    (game.snake.getYPosHead() == game.snake.getYPosBodyPart(i))) {
                 gameRunning = false;
                     timer.stop();
             }
-        }
-    }
-
-    public void eatSnack(){
-        if(x[0] == apple.getXpos() && y[0] == apple.getYpos()){
-            snake.increaseSize(1);
-            score++;
-            apple.setNewPos();                     //displayApple();
         }
     }
 
@@ -132,7 +100,7 @@ public class GamePanel extends JPanel implements ActionListener{
         g.setColor(Color.BLACK);
         g.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + score, (width - metrics1.stringWidth("Score: " + score)) /2, g.getFont().getSize());
+        g.drawString("Score: " + game.getScore(), (width - metrics1.stringWidth("Score: " + game.getScore())) /2, g.getFont().getSize());
 
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
@@ -143,13 +111,14 @@ public class GamePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (gameRunning){
-            moveSnake();
-            eatSnack();
+            game.moveSnake(course);
+            game.eatSnack();
             checkGameOverInjured();
             checkGameOverWallCollision();
         }
         repaint();
-
     }
+
+
 
 }
