@@ -17,7 +17,6 @@ public class StartPanel extends JFrame implements ActionListener {
         startButton = new JButton("Let's play snake!");
         input = new JTextArea();
         background.add(input, BorderLayout.BEFORE_FIRST_LINE);
-        input.setPreferredSize(new Dimension(400, 25));
         background.add(startButton, BorderLayout.AFTER_LAST_LINE);
         startButton.addActionListener(this);
         startButton.setFont(new Font("Ink Free",Font.BOLD,35));
