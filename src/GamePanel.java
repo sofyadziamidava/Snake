@@ -9,11 +9,12 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
+    Snake snake;
     static final int width = 600;
     static final int height = 600;
-    static final int boxSize = 30;
+    static final int boxSize = 30;   // ormdelar storlek
     static final int gameUnits = ((width*height / boxSize));
-    static final int speed = 100;
+    //static final int speed = 100;                            // orm
     boolean gameRunning = false;
     int snackX;
     int snackY;
@@ -22,13 +23,14 @@ public class GamePanel extends JPanel implements ActionListener{
     final int[] x = new int[gameUnits];
     final int[] y = new int[gameUnits];
 
-    int snakeSize = 4;
-    static String course = "Right";
+    //int snakeSize = 4;         // orm
+    static String course = "Right";   // orm, men handlar om riktning och interaktion med gui
     int score = 0;
     Timer timer;
     Random random;
 
     public GamePanel() throws IOException {
+        this.snake = new Snake(4, boxSize, 100);
         random = new Random();
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
@@ -40,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public void startOfTheGame(){
         displayApple();
         gameRunning = true;
-        timer = new Timer(speed, this);
+        timer = new Timer(snake.getSpeed(), this); // timer = new Timer(speed, this);
         timer.start();
     }
 
@@ -55,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener{
             g.setColor(Color.red);
             g.fillOval(snackX, snackY, boxSize, boxSize);
 
-            for (int i = 0; i < snakeSize; i++) {
+            for (int i = 0; i < snake.getSize(); i++) {  //             for (int i = 0; i < snakeSize; i++) {
                 if (i == 0) {
                     g.setColor(Color.ORANGE);
                     g.fillRect(x[i], y[i], boxSize, boxSize);
@@ -81,18 +83,18 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void moveSnake(){
-        for (int i = snakeSize; i > 0; i--) {
+        for (int i = snake.getSize(); i > 0; i--) {   //         for (int i = snakeSize; i > 0; i--) {
             x[i] = x[i - 1];
             y[i] = y[i - 1];
         }
 
-        if(course.equals("Right")){
+        if(course.equals("Right")){     //         if(course.equals("Right")){
             x[0] = x[0] + boxSize;
-        } else if (course.equals("Left")){
+        } else if (course.equals("Left")){    //         } else if (course.equals("Left")){
             x[0] = x[0] - boxSize;
-        }else if (course.equals("Up")){
+        }else if (course.equals("Up")){          //         }else if (course.equals("Up")){
             y[0] = y[0] - boxSize;
-        }else  if (course.equals("Down")){
+        }else  if (course.equals("Down")){          //         }else  if (course.equals("Down")){
             y[0] = y[0] + boxSize;
         }
     }
@@ -119,7 +121,7 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void checkGameOverInjured(){
-        for (int i = snakeSize; i > 0 ; i--) {
+        for (int i = snake.getSize(); i > 0 ; i--) {
             if((x[0] == x[i])&& (y[0] == y[i])) {
                 gameRunning = false;
                     timer.stop();
@@ -129,7 +131,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void eatSnack(){
         if(x[0] == snackX && y[0] == snackY){
-            snakeSize++;
+            snake.increaseSize(1);
             score++;
             displayApple();
         }
