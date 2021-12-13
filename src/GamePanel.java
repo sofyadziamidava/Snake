@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
     static final int speed = 100;
-    boolean gameRunning = false;
+    static protected boolean gameRunning = false;
     int snackX;
     int snackY;
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
     int snakeSize = 4;
     static String course = "Right";
-    int score = 0;
+    static int score = 0;
     Timer timer;
     Random random;
 
