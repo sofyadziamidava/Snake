@@ -1,3 +1,4 @@
+
 public class Game {
 
     Snake snake;
@@ -35,7 +36,7 @@ public class Game {
         snake.moveSnake(course);
   }
 
-    public void eatSnack(){
+    public void eatApple(){
         if(snake.getXPosHead() == apple.getXpos() &&
                 snake.getYPosHead() == apple.getYpos()){
             snake.increaseSize(1);

@@ -36,7 +36,7 @@ public class StartPanel extends JFrame implements ActionListener {
             if (e.getSource() == startButton) {
                 Thread.sleep(3000);
                 dispose();
-                GameWindow gameWindow = new GameWindow();
+                new GameWindow();
             }
         } catch (IOException | InterruptedException io) {
             io.printStackTrace();
