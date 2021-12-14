@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
+
     public void checkIfInjured(){
         if (game.snakeInjured()){
             gameRunning = false;
