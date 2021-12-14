@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ScoreboardPanel extends JFrame implements ActionListener {
+public class ScoreboardPanel extends JFrame {
     static String currentPlayerName;
     ArrayList<String> players = new ArrayList<>();
     ArrayList<String> scores = new ArrayList<>();
@@ -106,15 +106,5 @@ public class ScoreboardPanel extends JFrame implements ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        try {
-            if (e.getSource() == newGame) {
-                this.dispose();
-                gameWindow = new GameWindow();
-            }
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
+
 }
