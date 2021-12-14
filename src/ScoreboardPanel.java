@@ -19,6 +19,7 @@ public class ScoreboardPanel extends JFrame {
     Game game;
 
     public ScoreboardPanel(Game game) {
+        this.game = game;
         registerCurrentHighScore();
         getAllHighScores();
         sortScores();
