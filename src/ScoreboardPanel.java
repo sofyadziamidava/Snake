@@ -16,8 +16,9 @@ public class ScoreboardPanel extends JFrame {
     int[] sortedScores;
     ArrayList<String> scoresToShow = new ArrayList<>();
     JButton newGame = new JButton("Let's play snake again!");
+    Game game;
 
-    public ScoreboardPanel() {
+    public ScoreboardPanel(Game game) {
         registerCurrentHighScore();
         getAllHighScores();
         sortScores();
@@ -61,7 +62,7 @@ public class ScoreboardPanel extends JFrame {
         File file = new File("src/scores.txt");
         try (FileWriter fileWriter = new FileWriter(file, true);) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + currentPlayerName + "," + GamePanel.score);
+            bufferedWriter.write("\n" + currentPlayerName + "," + game.getScore());
             bufferedWriter.close();
         } catch (Exception e) {
             System.out.println("Error " + e.getMessage());

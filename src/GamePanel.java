@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener{
                     g.getFont().getSize());
         } else {
             StartPanel.gameWindow.dispose();
-            new ScoreboardPanel();
+            new ScoreboardPanel(game);
             g.dispose();
         }
     }
