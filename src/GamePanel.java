@@ -70,7 +70,9 @@ public class GamePanel extends JPanel implements ActionListener{
             g.drawString("Score: " + score, (width - metrics.stringWidth("Score: " + score)) / 2,
                     g.getFont().getSize());
         } else {
-            endOfTheGame(g);
+            StartPanel.gameWindow.dispose();
+            new ScoreboardPanel();
+            g.dispose();
         }
 
     }
@@ -101,15 +103,12 @@ public class GamePanel extends JPanel implements ActionListener{
         if(x[0] < 0){
             gameRunning = false;
         }
-        //Kollar om ormen går in i högra väggen
         if(x[0] > width){
             gameRunning = false;
         }
-        //Kollar om ormen går in i översta väggen
         if(y[0] < 0){
             gameRunning = false;
         }
-        //Kollar om ormen går in i nederst väggen
         if(x[0] > height){
             gameRunning = false;
         }
@@ -155,7 +154,6 @@ public class GamePanel extends JPanel implements ActionListener{
             eatSnack();
             checkGameOverInjured();
             checkGameOverWallCollision();
-
         }
         repaint();
 

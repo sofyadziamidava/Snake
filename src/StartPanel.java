@@ -8,6 +8,7 @@ import java.io.IOException;
 public class StartPanel extends JFrame implements ActionListener {
     JButton startButton;
     JTextArea input;
+    static GameWindow gameWindow;
 
     public StartPanel() {
 
@@ -34,14 +35,13 @@ public class StartPanel extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Player currenPlayer = new Player();
-        currenPlayer.name = input.getText();
-        if (!currenPlayer.name.isEmpty() || !currenPlayer.name.isBlank()){
+        ScoreboardPanel.currentPlayerName = input.getText();
+        if (!ScoreboardPanel.currentPlayerName.isEmpty() || !ScoreboardPanel.currentPlayerName.isBlank()){
         try {
             if (e.getSource() == startButton) {
                 Thread.sleep(3000);
                 dispose();
-                GameWindow gameWindow = new GameWindow();
+                gameWindow = new GameWindow();
             }
         } catch (IOException | InterruptedException io) {
             io.printStackTrace();
