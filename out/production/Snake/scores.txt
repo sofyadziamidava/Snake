@@ -1,0 +1,13 @@
+Kelly,10
+Jim,8
+Pam,7
+Dwight,9
+Ryan,3
+Angela,2
+Creed,16
+Michael,6
+Meredith,1
+Andy,12
+s,0
+s,0
+s,0

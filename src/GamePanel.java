@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
@@ -60,7 +61,9 @@ public class GamePanel extends JPanel implements ActionListener{
             g.drawString("Score: " + game.getScore(), (width - metrics.stringWidth("Score: " + game.getScore())) / 2,
                     g.getFont().getSize());
         } else {
-            endOfTheGame(g);
+            StartPanel.gameWindow.dispose();
+            new ScoreboardPanel();
+            g.dispose();
         }
     }
 
