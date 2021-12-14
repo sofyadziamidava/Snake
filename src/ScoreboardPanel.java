@@ -1,21 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ScoreboardPanel extends JFrame{
+public class ScoreboardPanel extends JFrame implements ActionListener {
     static String currentPlayerName;
     ArrayList<String> players = new ArrayList<>();
     ArrayList<String> scores = new ArrayList<>();
     String[] sortedPlayers;
     int[] sortedScores;
     ArrayList<String> scoresToShow = new ArrayList<>();
+    JButton newGame = new JButton("Let's play snake again!");
+    GameWindow gameWindow;
 
     public ScoreboardPanel() {
         registerCurrentHighScore();
@@ -37,16 +38,18 @@ public class ScoreboardPanel extends JFrame{
         JLabel label = new JLabel("High Scores:");
         label.setFont(new Font("Ink Free",Font.BOLD,20));
         add(label, BorderLayout.BEFORE_FIRST_LINE);
-        String toDisplay = "<html>";
+        StringBuilder toDisplay = new StringBuilder("<html>");
         for (String s: scoresToShow) {
-            toDisplay = toDisplay + s + "<br>";
+            toDisplay.append(s).append("<br>");
         }
-        toDisplay = toDisplay.substring(0, toDisplay.length() -4) + "</html>";
-        JLabel labelScores = new JLabel(toDisplay);
+        toDisplay = new StringBuilder(toDisplay.substring(0, toDisplay.length() - 4) + "</html>");
+        JLabel labelScores = new JLabel(toDisplay.toString());
         labelScores.setBackground(Color.black);
-        labelScores.setFont(new Font("Ink Free",Font.BOLD,35));
+        labelScores.setFont(new Font("Ink Free",Font.BOLD,30));
         add(labelScores);
         setBackground(Color.yellow);
+        newGame.setFont(new Font("Ink Free",Font.BOLD,25));
+        add(newGame, BorderLayout.AFTER_LAST_LINE);
         this.setVisible(true);
         this.pack();
         this.setSize(600, 600);
@@ -103,7 +106,15 @@ public class ScoreboardPanel extends JFrame{
         }
     }
 
-    public static void main(String[] args) {
-        ScoreboardPanel scoreboardPanel = new ScoreboardPanel();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == newGame) {
+                this.dispose();
+                gameWindow = new GameWindow();
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 }

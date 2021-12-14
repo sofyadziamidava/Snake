@@ -4,7 +4,10 @@ Pam,7
 Dwight,9
 Ryan,3
 Angela,2
-Creed,99
+Creed,16
 Michael,6
 Meredith,1
 Andy,12
+Sofya,4
+sofya,1
+sogya,1
