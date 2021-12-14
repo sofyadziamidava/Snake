@@ -14,15 +14,16 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
     boolean gameRunning = false;
+    static Timer timer;
 
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
 
     static String course = "Right";
-    Timer timer;
     Game game;
 
     public GamePanel() throws IOException {
-        this.game = new Game(new Snake(4, boxSize, 100, gameUnits), new Apple(width, boxSize), width, height);
+        this.game = new Game(new Snake(4, boxSize, 150, gameUnits),
+                             new Apple(width, boxSize), width, height);
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);
         this.setFocusable(true);
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements ActionListener{
         gameRunning = true;
         timer = new Timer(game.getSpeed(), this);
         timer.start();
+
     }
 
     public void paintComponent(Graphics g){

@@ -1,3 +1,4 @@
+import javax.swing.*;
 
 public class Game {
 
@@ -42,6 +43,8 @@ public class Game {
             snake.increaseSize(1);
             this.increaseScore();
             apple.setNewPos();
+            snake.increaseSpeed();
+            GamePanel.timer.setDelay(snake.getSpeed());
         }
     }
 

@@ -23,20 +23,12 @@ public class Snake {
         this.size += size;
     }
 
-    public int getSizePerPart() {
-        return sizePerPart;
-    }
-
-    public void setSizePerPart(int sizePerPart) {
-        this.sizePerPart = sizePerPart;
-    }
-
     public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void increaseSpeed() {
+        this.speed -= 50;
     }
 
     public int getXPosHead(){
