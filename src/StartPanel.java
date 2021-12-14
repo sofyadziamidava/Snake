@@ -37,15 +37,15 @@ public class StartPanel extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ScoreboardPanel.currentPlayerName = input.getText();
         if (!ScoreboardPanel.currentPlayerName.isEmpty() || !ScoreboardPanel.currentPlayerName.isBlank()){
-        try {
             if (e.getSource() == startButton) {
-                Thread.sleep(3000);
                 dispose();
-                gameWindow = new GameWindow();
+                try {
+                    gameWindow = new GameWindow();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-        } catch (IOException | InterruptedException io) {
-            io.printStackTrace();
-        }} else{
+        } else{
             JOptionPane.showMessageDialog(null, "please enter your username first");
         }
     }
