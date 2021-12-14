@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
@@ -14,7 +15,10 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int height = 600;
     static final int boxSize = 30;
     static final int gameUnits = ((width*height / boxSize));
-    boolean gameRunning = false;
+    static final int speed = 100;
+    static protected boolean gameRunning = false;
+    int snackX;
+    int snackY;
 
     Image image1 = ImageIO.read(new File("src/grass.jpg"));
 
@@ -22,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener{
     final int[] y = new int[gameUnits];
 
     static String course = "Right";
-    int score = 0;
+    static int score = 0;
     Timer timer;
 
     public GamePanel() throws IOException {
@@ -67,7 +71,9 @@ public class GamePanel extends JPanel implements ActionListener{
             g.drawString("Score: " + score, (width - metrics.stringWidth("Score: " + score)) / 2,
                     g.getFont().getSize());
         } else {
-            endOfTheGame(g);
+            StartPanel.gameWindow.dispose();
+            new ScoreboardPanel();
+            g.dispose();
         }
 
     }
@@ -93,15 +99,12 @@ public class GamePanel extends JPanel implements ActionListener{
         if(x[0] < 0){
             gameRunning = false;
         }
-        //Kollar om ormen går in i högra väggen
         if(x[0] > width){
             gameRunning = false;
         }
-        //Kollar om ormen går in i översta väggen
         if(y[0] < 0){
             gameRunning = false;
         }
-        //Kollar om ormen går in i nederst väggen
         if(x[0] > height){
             gameRunning = false;
         }
