@@ -8,31 +8,5 @@ Creed,16
 Michael,6
 Meredith,1
 Andy,12
-so,3
-sofya,3
-sofya,2
-sofya,1
-sofya,0
-sofya,0
-sofya,0
-sofya,0
- ,0
- ,0
- ,0
- ,0
- ,0
- ,0
- ,0
- ,0
-s,0
-s,0
-s,2
-s,0
-s,0
-v,0
-v,0
- ,0
-s,1
-s,22
-s,15
-s,9
+s,11
+s,6

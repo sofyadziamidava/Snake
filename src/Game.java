@@ -46,7 +46,7 @@ public class Game {
     }
 
     public void increaseSpeed(){
-        if (snake.getSpeed() % 5 == 0){
+        if (score % 1 == 0){
             snake.setSpeed(snake.getSpeed() + 1000);
         }
     }
