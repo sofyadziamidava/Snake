@@ -8,4 +8,3 @@ Creed,16
 Michael,6
 Meredith,1
 Andy,12
-so,3

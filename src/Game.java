@@ -45,6 +45,12 @@ public class Game {
         }
     }
 
+    public void increaseSpeed(){
+        if (snake.getSpeed() % 5 == 0){
+            snake.setSpeed(snake.getSpeed() + 1000);
+        }
+    }
+
     public boolean snakeInjured(){
         for (int i = this.getSnakeSize(); i > 0 ; i--) {
             if((snake.getXPosHead() == snake.getXPosBodyPart(i)) &&

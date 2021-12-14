@@ -8,14 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ScoreboardPanel extends JFrame {
+public class ScoreboardPanel extends JFrame{
     static String currentPlayerName;
     ArrayList<String> players = new ArrayList<>();
     ArrayList<String> scores = new ArrayList<>();
     String[] sortedPlayers;
     int[] sortedScores;
     ArrayList<String> scoresToShow = new ArrayList<>();
-    JButton newGame = new JButton("Let's play snake again!");
     Game game;
 
     public ScoreboardPanel(Game game) {
@@ -49,8 +48,6 @@ public class ScoreboardPanel extends JFrame {
         labelScores.setFont(new Font("Ink Free",Font.BOLD,30));
         add(labelScores);
         setBackground(Color.yellow);
-        newGame.setFont(new Font("Ink Free",Font.BOLD,25));
-      //  add(newGame, BorderLayout.AFTER_LAST_LINE);
         this.setVisible(true);
         this.pack();
         this.setSize(600, 600);

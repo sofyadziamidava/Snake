@@ -99,6 +99,7 @@ public class GamePanel extends JPanel implements ActionListener{
         if (gameRunning){
             game.moveSnake(course);
             game.eatApple();
+            game.increaseSpeed();
             checkIfInjured();
             checkWallCollision();
         }
