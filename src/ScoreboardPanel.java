@@ -16,7 +16,6 @@ public class ScoreboardPanel extends JFrame {
     int[] sortedScores;
     ArrayList<String> scoresToShow = new ArrayList<>();
     JButton newGame = new JButton("Let's play snake again!");
-    GameWindow gameWindow;
 
     public ScoreboardPanel() {
         registerCurrentHighScore();
@@ -49,7 +48,7 @@ public class ScoreboardPanel extends JFrame {
         add(labelScores);
         setBackground(Color.yellow);
         newGame.setFont(new Font("Ink Free",Font.BOLD,25));
-        add(newGame, BorderLayout.AFTER_LAST_LINE);
+      //  add(newGame, BorderLayout.AFTER_LAST_LINE);
         this.setVisible(true);
         this.pack();
         this.setSize(600, 600);
@@ -105,6 +104,4 @@ public class ScoreboardPanel extends JFrame {
             }
         }
     }
-
-
 }
