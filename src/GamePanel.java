@@ -84,19 +84,6 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
-    public void endOfTheGame(Graphics g){
-       // g.drawImage(image2, gameUnits , gameUnits, null);
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Ink Free", Font.BOLD, 40));
-        FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + game.getScore(), (width - metrics1.stringWidth("Score: " + game.getScore())) /2, g.getFont().getSize());
-
-        g.setColor(Color.red);
-        g.setFont(new Font("Ink Free", Font.BOLD, 75));
-        FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("Game Over", (width - metrics2.stringWidth("Game over")) /2, height / 2);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (gameRunning){
