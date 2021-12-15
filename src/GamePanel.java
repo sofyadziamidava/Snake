@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements ActionListener{
     Game game;
 
     public GamePanel() throws IOException {
-        this.game = new Game(new Snake(4, boxSize, 150, gameUnits),
+        this.game = Game.getInstance(new Snake(4, boxSize, 150, gameUnits),
                              new Apple(width, boxSize), width, height);
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.LIGHT_GRAY);

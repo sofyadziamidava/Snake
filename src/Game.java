@@ -2,13 +2,14 @@ import javax.swing.*;
 
 public class Game {
 
+    private static Game game_instance = null;
     Snake snake;
     Apple apple;
     int score;
     int width;
     int height;
 
-    public Game(Snake snake, Apple apple, int width, int height){
+    private Game(Snake snake, Apple apple, int width, int height){
 
         this.snake = snake;
         this.apple = apple;
@@ -69,5 +70,13 @@ public class Game {
         snake.getYPosHead() < 0 -> ormen går in i översta väggen
         snake.getYPosHead() > height -> ormen går in i nedersta väggen
         */
+    }
+
+    public static Game getInstance(Snake snake, Apple apple, int width, int height)
+    {
+        if (game_instance == null)
+            game_instance = new Game(snake, apple, width, height);
+
+        return game_instance;
     }
 }
