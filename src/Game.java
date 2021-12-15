@@ -43,10 +43,9 @@ public class Game {
             snake.increaseSize(1);
             this.increaseScore();
             apple.setNewPos();
-            while(snake.getSpeed() > 50) {
-                snake.increaseSpeed();
-                GamePanel.timer.setDelay(snake.getSpeed());
-            }
+            snake.increaseSpeed();
+            GamePanel.timer.setDelay(snake.getSpeed());
+
         }
     }
 
@@ -76,7 +75,6 @@ public class Game {
     {
         if (game_instance == null)
             game_instance = new Game(snake, apple, width, height);
-
         return game_instance;
     }
 }

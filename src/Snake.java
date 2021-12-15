@@ -28,7 +28,7 @@ public class Snake {
     }
 
     public void increaseSpeed() {
-        this.speed -= 50;
+        this.speed -= 30;
     }
 
     public int getXPosHead(){
