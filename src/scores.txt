@@ -12,3 +12,6 @@ so,3
 rose,2
 rose,3
 ro,2
+ko,1
+lo,1
+po,1

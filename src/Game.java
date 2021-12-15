@@ -38,8 +38,7 @@ public class Game {
   }
 
     public void eatApple(){
-        if(snake.getXPosHead() == apple.getXpos() &&
-                snake.getYPosHead() == apple.getYpos()){
+        if(snake.getXPosHead() == apple.getXpos() && snake.getYPosHead() == apple.getYpos()){
             snake.increaseSize(1);
             this.increaseScore();
             apple.setNewPos();
